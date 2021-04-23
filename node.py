@@ -17,7 +17,7 @@ class Node:
         return self.row, self.col
 
     def is_closed(self):
-        return self.color == red
+        return self.color == pink
 
     def is_open(self):
         return self.color == green
@@ -35,7 +35,7 @@ class Node:
         self.color = white
 
     def make_closed(self):
-        self.color = red
+        self.color = pink
 
     def make_open(self):
         self.color = green
@@ -50,7 +50,7 @@ class Node:
         self.color = torquoise
 
     def make_path(self):
-        self.color = purple
+        self.color = blue
 
     def draw(self, window):
         pygame.draw.rect(window, self.color, (self.x, self.y, self.size, self.size))

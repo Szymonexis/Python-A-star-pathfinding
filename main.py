@@ -7,12 +7,15 @@ from colors import *
 from node import Node
 
 # basic windows variables
-size = 800
+size = 1000
 win = pygame.display.set_mode((size, size))
 pygame.display.set_caption("A* pathfinding algorithm")
+fps = 120
+fpsClock = pygame.time.Clock()
 
 
 # for manhattan distance (that is vertical plus horizontal)
+# heuristic function provides a measurement to tell A* how far away is the end node
 def heuristic(p1, p2):
     x1, y1 = p1
     x2, y2 = p2
@@ -28,7 +31,7 @@ def reconstruct_path(came_from, current, draw):
 
 
 # A* algorithm function
-def algorithm(draw, grid, start, end):
+def algorithm(draw, grid, start, end, run):
     count = 0
     open_set = PriorityQueue()
     open_set.put((0, count, start))
@@ -43,7 +46,9 @@ def algorithm(draw, grid, start, end):
     while not open_set.empty():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                run = False
                 pygame.quit()
+                return False, run
 
         current = open_set.get()[2]
         open_set_hash.remove(current)
@@ -51,7 +56,7 @@ def algorithm(draw, grid, start, end):
         if current == end:
             reconstruct_path(came_from, end, draw)
             end.make_end()
-            return True
+            return True, run
 
         for neighbor in current.neighbors:
             temp_g_score = g_score[current] + 1
@@ -71,7 +76,7 @@ def algorithm(draw, grid, start, end):
         if current != start:
             current.make_closed()
 
-    return False
+    return False, run
 
 
 def make_grid(rows, width):
@@ -105,6 +110,7 @@ def draw(window, grid, rows, width):
 
     draw_grid(window, rows, width)
     pygame.display.update()
+    fpsClock.tick(fps)
 
 
 def get_mouse_pos(pos, rows, width):
@@ -168,7 +174,8 @@ def main(window, width):
                         for node in row:
                             node.update_neighbors(grid)
 
-                    algorithm(lambda: draw(window, grid, rows, width), grid, start_node, end_node)  # anonymous function
+                    # anonymous function
+                    _, run = algorithm(lambda: draw(window, grid, rows, width), grid, start_node, end_node, run)
 
                 if event.key == pygame.K_c:
                     start_node = None
