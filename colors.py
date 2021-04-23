@@ -9,4 +9,3 @@ purple = blue = (0, 0, 255)
 orange = (255, 165, 0)
 grey = (128, 128, 128)
 torquoise = (64, 224, 208)
-kupa, heheheh = "kupa", "hehehhehe"
