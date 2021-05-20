@@ -3,12 +3,14 @@
 Created with educational information from various channels on YouTube and Wikipedia page on A* pathfinding algorithm
 
 Controls:
-first left click - start point
-second left click - end point
-other left clicks - walls
-right click - delete walls/start/end
-space - start algo
-c - clear
+<ul>
+<li>first left click - start point</li>
+<li>second left click - end point</li>
+<li>other left clicks - walls</li>
+<li>right click - delete walls/start/end</li>
+<li>space - start algo</li>
+<li>c - clear</li>
+</ul>
 
 <hr></hr>
 
